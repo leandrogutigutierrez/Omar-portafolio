@@ -1,0 +1,57 @@
+Crea un portafolio personal completo como Single Page Application en React + Vite.
+
+## Datos personales
+- Nombre: Omar Leandro Gutiérrez Corral
+- Edad: 22 años
+- Carrera: Tecnología en Producción Transmedia
+- Ubicación: Cali, Colombia
+- Email: gutiller50@gmail.com
+- WhatsApp: +57 3332404326
+- Instagram: @leandro_gutierrezzz
+
+## Skills
+- VS Code → Avanzado
+- CapCut → Avanzado
+- Illustrator → Avanzado
+- Photoshop → Avanzado
+- Adobe Premiere → Intermedio
+- After Effects → Intermedio
+
+## Proyectos
+1. MediaConnet → https://mediaconnet.vercel.app/
+2. Quironpharma F&O → https://www.quironpharmafyo.com/
+3. Nanofimed Laboratorio → https://nanofimed.com/
+4. Dental Care Pro → https://chatbot-dental-demo.vercel.app/
+
+## Secciones requeridas
+- Hero (nombre, rol, foto, botones CTA)
+- Sobre mí (bio + estadísticas)
+- Skills (con barras de nivel animadas)
+- Proyectos (cards con screenshot y link)
+- Contacto (formulario + links a redes)
+
+## Estilo visual
+- Lo mas animada posible: minimalista elegante
+- Paleta: blanco/crema (#fafaf8), negro (#1a1916), acentos neutros
+- Tipografía: DM Serif Display (títulos) + DM Sans (cuerpo)
+- Todo 100% animado: scroll reveal, hover effects, barras de skill animadas, 
+  tarjetas flotantes en el hero
+- Cursor personalizado
+- Navbar con efecto blur al hacer scroll
+- Transiciones suaves en todos los elementos interactivos
+
+## Assets disponibles en /src/assets/
+- omar.jpg → foto de perfil (traje gris, fondo de oficina)
+- Capturas de cada proyecto: mediaconnet.png, mediaconnet2.png, 
+  nanofimed.png, nanofimed2.png, quiron.png, quiron2.png, 
+  chatbox1.png, chatbox2.png, chatbox3.png
+
+## Stack técnico
+- React + Vite
+- CSS Modules o Tailwind (el que prefieras)
+- Framer Motion para animaciones
+- React Icons para iconos
+
+## Entregable
+Proyecto completo listo para deployar en Vercel. Incluye 
+package.json con todas las dependencias y README con instrucciones.
