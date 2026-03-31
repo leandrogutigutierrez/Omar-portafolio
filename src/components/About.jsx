@@ -18,11 +18,6 @@ const tools = [
   'Premiere', 'After Effects',
 ]
 
-const stats = [
-  { num: '22',   label: 'Años'         },
-  { num: '4+',   label: 'Proyectos'    },
-  { num: '3+',   label: 'Años de exp.' },
-]
 
 export default function About() {
   const ref      = useRef(null)
@@ -121,44 +116,38 @@ export default function About() {
       {/* ─────────────────── MOBILE layout ──────────────────── */}
       <div className="container about__mobile" style={{ position: 'relative', zIndex: 1 }}>
 
-        {/* Header row: small photo + name/label */}
+        {/* FOTO GRANDE + BADGES arriba */}
         <motion.div
-          className="about-mobile-top"
+          className="about-mobile-photo-wrap"
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease }}
+        >
+          <img src={omarPhoto} alt="Omar Leandro Gutiérrez" className="about-mobile-photo" />
+
+          {/* Badges flotantes sobre la foto */}
+          <div className="about-mobile-badge about-mobile-badge--tl">
+            <span className="about-mobile-badge__num">22</span>
+            <span className="about-mobile-badge__label">años</span>
+          </div>
+          <div className="about-mobile-badge about-mobile-badge--tr">
+            <span className="about-mobile-badge__num">4+</span>
+            <span className="about-mobile-badge__label">proyectos</span>
+          </div>
+          <div className="about-mobile-badge about-mobile-badge--br">
+            <span className="about-mobile-badge__num">3+</span>
+            <span className="about-mobile-badge__label">años exp.</span>
+          </div>
+        </motion.div>
+
+        {/* TEXTO abajo */}
+        <motion.div
+          className="about-mobile-content"
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease }}
+          transition={{ duration: 0.7, delay: 0.2, ease }}
         >
-          <div className="about-mobile-avatar">
-            <img src={omarPhoto} alt="Omar Leandro Gutiérrez" />
-          </div>
-          <div className="about-mobile-id">
-            <span className="label" style={{ marginBottom: 4 }}>Sobre mí</span>
-            <span className="about-mobile-name">Omar Leandro<br/>Gutiérrez</span>
-          </div>
-        </motion.div>
-
-        {/* Stat pills */}
-        <motion.div
-          className="about-mobile-stats"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.1, ease }}
-        >
-          {stats.map((s) => (
-            <div key={s.label} className="about-mobile-stat">
-              <span className="about-mobile-stat__num">{s.num}</span>
-              <span className="about-mobile-stat__label">{s.label}</span>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Bio text */}
-        <motion.div
-          className="about-mobile-bio"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.18, ease }}
-        >
+          <span className="label">Sobre mí</span>
           <h2>Creativo con <em>propósito</em></h2>
           <p>
             Tecnólogo en Producción Transmedia con sede en Cali, Colombia.
@@ -169,17 +158,12 @@ export default function About() {
             Mi meta es traducir cada marca en piezas que comuniquen con
             precisión, estética y emoción.
           </p>
+
+          <div className="about__tools">
+            {tools.map((t) => <span key={t} className="about__tool">{t}</span>)}
+          </div>
         </motion.div>
 
-        {/* Tool chips */}
-        <motion.div
-          className="about__tools"
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.26, ease }}
-        >
-          {tools.map((t) => <span key={t} className="about__tool">{t}</span>)}
-        </motion.div>
       </div>
     </section>
   )

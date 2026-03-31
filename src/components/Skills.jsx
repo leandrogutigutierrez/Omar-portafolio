@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import SkillsDotBg from './SkillsDotBg'
 
@@ -13,8 +13,18 @@ const skills = [
   { icon: '✨', name: 'After Effects',   level: 'Intermedio', pct: 68 },
 ]
 
+// Detect touch device once at module level
+const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches
+
 function SkillRow({ skill, index, inView }) {
-  const [hovered, setHovered] = useState(false)
+  const [active, setActive] = useState(false)
+
+  // On touch devices: auto-reveal bar when section is in view
+  useEffect(() => {
+    if (!isTouch || !inView) return
+    const t = setTimeout(() => setActive(true), 300 + index * 120)
+    return () => clearTimeout(t)
+  }, [inView, index])
 
   return (
     <motion.div
@@ -22,13 +32,13 @@ function SkillRow({ skill, index, inView }) {
       initial={{ opacity: 0, x: -32 }}
       animate={inView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.65, delay: index * 0.09, ease }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseEnter={() => !isTouch && setActive(true)}
+      onMouseLeave={() => !isTouch && setActive(false)}
     >
       {/* Icon */}
       <motion.span
         className="skill-row__icon"
-        animate={{ scale: hovered ? 1.2 : 1, rotate: hovered ? -8 : 0 }}
+        animate={{ scale: active ? 1.2 : 1, rotate: active ? -8 : 0 }}
         transition={{ duration: 0.3, ease }}
       >
         {skill.icon}
@@ -41,10 +51,10 @@ function SkillRow({ skill, index, inView }) {
       <div className="skill-row__track">
         <motion.div
           className="skill-row__fill"
-          animate={{ scaleX: hovered ? skill.pct / 100 : 0.02 }}
+          animate={{ scaleX: active ? skill.pct / 100 : 0.02 }}
           transition={{
-            duration:  hovered ? 0.85 : 0.45,
-            ease:      hovered ? ease : [0.37, 0, 0.63, 1],
+            duration: active ? 0.85 : 0.45,
+            ease:     active ? ease : [0.37, 0, 0.63, 1],
           }}
           style={{ transformOrigin: 'left' }}
         />
@@ -53,13 +63,13 @@ function SkillRow({ skill, index, inView }) {
       {/* Percentage */}
       <motion.span
         className="skill-row__pct"
-        animate={{ opacity: hovered ? 1 : 0.3, y: hovered ? 0 : 4 }}
+        animate={{ opacity: active ? 1 : 0.3, y: active ? 0 : 4 }}
         transition={{ duration: 0.3 }}
       >
         {skill.pct}%
       </motion.span>
 
-      {/* Level label */}
+      {/* Level label — hidden on mobile via CSS */}
       <span className="skill-row__level">{skill.level}</span>
     </motion.div>
   )
@@ -71,7 +81,6 @@ export default function Skills() {
 
   return (
     <section id="skills" className="skills" ref={ref}>
-      {/* Dot grid canvas — follows cursor */}
       <SkillsDotBg />
 
       <div className="container skills__inner">
@@ -89,19 +98,22 @@ export default function Skills() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.75, delay: 0.1, ease }}
           >
-            Pasa el cursor sobre cada herramienta para revelar el nivel.
+            {isTouch
+              ? 'Las barras se revelan automáticamente.'
+              : 'Pasa el cursor sobre cada herramienta para revelar el nivel.'}
           </motion.p>
         </div>
 
-        {/* Hint */}
-        <motion.p
-          className="skills__hint"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.75, delay: 0.4, ease }}
-        >
-          ↗ hover para ver
-        </motion.p>
+        {!isTouch && (
+          <motion.p
+            className="skills__hint"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.75, delay: 0.4, ease }}
+          >
+            ↗ hover para ver
+          </motion.p>
+        )}
 
         <div className="skills__rows">
           {skills.map((s, i) => (
