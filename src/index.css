@@ -1091,10 +1091,9 @@ h1, h2, h3 {
   .hero__bio            { max-width: 560px; }
   .hero__name h1        { font-size: clamp(60px, 9vw, 88px); }
 
-  /* About — foto arriba, texto abajo */
-  .about__inner--desktop { grid-template-columns: 1fr; gap: 56px; }
-  .about-photo-col       { display: flex; justify-content: center; }
-  .about-photo-wrap      { max-width: 300px; }
+  /* About — usar layout móvil desde tablet también */
+  .about__inner--desktop { display: none !important; }
+  .about__mobile         { display: block !important; }
 
   /* Skills header */
   .skills__header        { flex-direction: column; align-items: flex-start; gap: 8px; }
@@ -1140,8 +1139,8 @@ h1, h2, h3 {
   .hero__scroll         { display: none; }
 
   /* ─ About — cambiar a layout móvil ─ */
-  .about__inner--desktop { display: none; }   /* ocultar desktop */
-  .about__mobile         { display: block; }   /* mostrar móvil */
+  .about__inner--desktop { display: none !important; }
+  .about__mobile         { display: block !important; }
   .about-glow--primary,
   .about-glow--secondary { display: none; }
   .about-watermark       { display: none; }
